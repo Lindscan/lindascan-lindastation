@@ -1,4 +1,4 @@
-const LindaWeb = require('lindaweb');
+const LindaWeb = require('@lindacoin/lindaweb');
 const LindaStation = require('../setup/LindaStation-SDK');
 const {SHASTA, LOCAL, NET} = require('./config');
 

@@ -1,5 +1,5 @@
 const {assert, assertThrow, lindaStationBuilder, net, } = require('../../helpers/includes')
-const LindaWeb = require('lindaweb');
+const LindaWeb = require('@lindacoin/lindaweb');
 
 
 describe('#apis functional unit test', function () {

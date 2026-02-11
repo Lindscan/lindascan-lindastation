@@ -60,7 +60,7 @@ If you'd like to download and build locally, please follow the steps below.
 
 ```js
 import LindaStation from '@lindascan/lindastation';
-import LindaWeb from 'lindaweb';
+import LindaWeb from '@lindacoin/lindaweb';
 
 const fullNode = new HttpProvider('https://api.lindagrid.lindacoin.org');
 const solidityNode = new HttpProvider('https://api.lindagrid.lindacoin.org');
