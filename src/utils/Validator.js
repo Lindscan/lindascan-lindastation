@@ -1,8 +1,8 @@
 export default class Validator {
 
-    constructor(tronStation) {
-        this.tronWeb = tronStation.tronWeb;
-        this.utils = this.tronWeb.utils;
+    constructor(lindaStation) {
+        this.lindaWeb = lindaStation.lindaWeb;
+        this.utils = this.lindaWeb.utils;
     }
 
     validateNumber(param, opt, val) {
@@ -18,7 +18,7 @@ export default class Validator {
     }
 
     validateAddress(address) {
-        if (!this.tronWeb.isAddress(address))
+        if (!this.lindaWeb.isAddress(address))
             throw new Error('Invalid address provided.');
     }
 

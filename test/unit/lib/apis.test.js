@@ -1,14 +1,14 @@
-const {assert, assertThrow, tronStationBuilder, net, } = require('../../helpers/includes')
-const TronWeb = require('tronweb');
+const {assert, assertThrow, lindaStationBuilder, net, } = require('../../helpers/includes')
+const LindaWeb = require('lindaweb');
 
 
 describe('#apis functional unit test', function () {
 
-    let tronStation;
+    let lindaStation;
 
     before(async function () {
         this.timeout(10000);
-        tronStation = tronStationBuilder.createInstance(net);
+        lindaStation = lindaStationBuilder.createInstance(net);
     });
 
     after(async function () {
@@ -16,11 +16,11 @@ describe('#apis functional unit test', function () {
     });
 
 
-    describe('#from trx', function () {
+    describe('#from lind', function () {
         this.timeout(10000);
 
-        it('should convert trx to sun', async function () {
-            const res = await tronStation.apis.fromTrx(1);
+        it('should convert lind to sun', async function () {
+            const res = await lindaStation.apis.fromLind(1);
             assert.equal(res, 10e5);
         });
 
@@ -30,7 +30,7 @@ describe('#apis functional unit test', function () {
         this.timeout(10000);
 
         it('should get resource value by name', async function () {
-            const res = await tronStation.apis.getResourceByName('EnergyWeight');
+            const res = await lindaStation.apis.getResourceByName('EnergyWeight');
             assert.isTrue(typeof res === 'number' && res >= 0);
         });
 
@@ -40,7 +40,7 @@ describe('#apis functional unit test', function () {
         this.timeout(10000);
 
         it('should get resources by names', async function () {
-            const res = await tronStation.apis.getResourcesByName(['TotalNetLimit', 'TotalNetWeight']);
+            const res = await lindaStation.apis.getResourcesByName(['TotalNetLimit', 'TotalNetWeight']);
             assert.isTrue(!!res.TotalNetLimit && !!res.TotalNetWeight);
         });
 
@@ -50,7 +50,7 @@ describe('#apis functional unit test', function () {
         this.timeout(10000);
 
         it('should get proposal value by name', async function () {
-            const res = await tronStation.apis.getChainParameterByName('getEnergyFee');
+            const res = await lindaStation.apis.getChainParameterByName('getEnergyFee');
             assert.equal(res, 10);
         });
 
@@ -60,7 +60,7 @@ describe('#apis functional unit test', function () {
         this.timeout(10000);
 
         it('should get proposals by names', async function () {
-            const res = await tronStation.apis.getChainParametersByName(['getTotalEnergyLimit', 'getEnergyFee']);
+            const res = await lindaStation.apis.getChainParametersByName(['getTotalEnergyLimit', 'getEnergyFee']);
             assert.isTrue(!!res.getTotalEnergyLimit && !!res.getEnergyFee);
         });
 

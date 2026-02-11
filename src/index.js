@@ -3,31 +3,31 @@ import Bandwidth from 'lib/Bandwidth';
 import Witness from 'lib/Witness';
 import Apis from 'utils/Apis';
 
-export default class TronStation {
+export default class LindaStation {
 
-    constructor(tronWeb = false) {
-        if (!tronWeb)
-            throw new Error('Expected instance of TronWeb');
+    constructor(lindaWeb = false) {
+        if (!lindaWeb)
+            throw new Error('Expected instance of LindaWeb');
 
-        if (!tronWeb.defaultAddress)
-            throw new Error('Expected default account set up in TronWeb');
-        this.tronWeb = tronWeb;
+        if (!lindaWeb.defaultAddress)
+            throw new Error('Expected default account set up in LindaWeb');
+        this.lindaWeb = lindaWeb;
         this.energy = new Energy(this);
-        this.defaultAddress = tronWeb.defaultAddress;
+        this.defaultAddress = lindaWeb.defaultAddress;
         this.bp = new Bandwidth(this);
         this.witness = new Witness(this);
         this.apis = new Apis(this);
     }
 
-    setTronWeb(tronWeb = false) {
-        if (!tronWeb)
-            throw new Error('Expected instance of TronWeb');
-        if (!tronWeb.defaultAddress)
-            throw new Error('Expected default account set up in TronWeb');
-        this.tronWeb = tronWeb;
-        this.defaultAddress = tronWeb.defaultAddress;
+    setLindaWeb(lindaWeb = false) {
+        if (!lindaWeb)
+            throw new Error('Expected instance of LindaWeb');
+        if (!lindaWeb.defaultAddress)
+            throw new Error('Expected default account set up in LindaWeb');
+        this.lindaWeb = lindaWeb;
+        this.defaultAddress = lindaWeb.defaultAddress;
         this.energy = new Energy(this);
-        this.defaultAddress = tronWeb.defaultAddress;
+        this.defaultAddress = lindaWeb.defaultAddress;
         this.bp = new Bandwidth(this);
         this.witness = new Witness(this);
         this.apis = new Apis(this);

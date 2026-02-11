@@ -1,18 +1,18 @@
-import TronStation from '../index';
+import LindaStation from '../index';
 import Validator from '../utils/Validator';
 import Apis from '../utils/Apis';
 
 class Base {
 
-    constructor(tronStation) {
-        if (!tronStation || !(tronStation instanceof TronStation))
-            throw new Error('Expected instance of TronStation');
+    constructor(lindaStation) {
+        if (!lindaStation || !(lindaStation instanceof LindaStation))
+            throw new Error('Expected instance of LindaStation');
 
-        this.tronStation = tronStation;
-        this.tronWeb = tronStation.tronWeb;
-        this.apis = new Apis(this.tronStation);
-        this.validator = new Validator(this.tronStation);
-        this.utils = this.tronWeb.utils;
+        this.lindaStation = lindaStation;
+        this.lindaWeb = lindaStation.lindaWeb;
+        this.apis = new Apis(this.lindaStation);
+        this.validator = new Validator(this.lindaStation);
+        this.utils = this.lindaWeb.utils;
     }
 
 }

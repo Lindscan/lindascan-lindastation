@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const target = path.resolve(__dirname, '..', 'test', 'setup', 'TronStation-SDK.js');
+const target = path.resolve(__dirname, '..', 'test', 'setup', 'LindaStation-SDK.js');
 
 try {
     fs.unlinkSync(target);

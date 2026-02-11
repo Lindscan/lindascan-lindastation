@@ -2,7 +2,7 @@ module.exports = {
 
     SHASTA: {
         PRIVATE_KEY: 'your private key',
-        HOST: 'https://api.shasta.trongrid.io'
+        HOST: 'https://api.shasta.lindagrid.io'
     },
 
     LOCAL: {

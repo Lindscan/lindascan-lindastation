@@ -2,16 +2,16 @@ import Base from './Base';
 
 export default class Bandwidth extends Base {
 
-    constructor(tronStation) {
-        super(tronStation);
+    constructor(lindaStation) {
+        super(lindaStation);
     }
 
-    async trx2FrozenBandwidth(amount, options = {}) {
+    async lind2FrozenBandwidth(amount, options = {}) {
 
         this.validator.validateNumber({ n: 'amount', v: amount}, '>=', 0);
 
         if (options.unit === 'sun')
-            amount = this.apis.toTrx(amount);
+            amount = this.apis.toLind(amount);
 
         let accountResources = await this.apis.getResourcesByName(['TotalNetLimit', 'TotalNetWeight']);
         let totalBandwidthLimit = this.apis.filterData(accountResources.TotalNetLimit);
@@ -19,7 +19,7 @@ export default class Bandwidth extends Base {
         return (amount * totalBandwidthLimit) / totalBandwidthWeight;
     }
 
-    async frozenBandwidth2Trx(bandwidth, options = {}) {
+    async frozenBandwidth2Lind(bandwidth, options = {}) {
 
         this.validator.validateNumber({ n: 'bandwidth', v: bandwidth}, '>=', 0);
 
@@ -29,7 +29,7 @@ export default class Bandwidth extends Base {
         let amount = (bandwidth * totalBandwidthWeight) / totalBandwidthLimit;
 
         if (options.unit === 'sun') {
-            amount = this.apis.fromTrx(amount);
+            amount = this.apis.fromLind(amount);
         }
         return amount;
     }
@@ -38,7 +38,7 @@ export default class Bandwidth extends Base {
 
         this.validator.validateAddress(address)
 
-        let account = await this.tronWeb.trx.getAccount(address);
+        let account = await this.lindaWeb.lind.getAccount(address);
         if (account.balance === undefined) account.balance = 0;
 
         let resources = ["freeNetLimit", "freeNetUsed", "NetLimit", "NetUsed"];

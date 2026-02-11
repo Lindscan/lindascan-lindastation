@@ -59,7 +59,7 @@ module.exports = [
         ...baseConfig,
         output: {
             path: path.resolve(__dirname, 'dist'),
-            filename: 'tronstation-sdk.node.js',
+            filename: 'lindastation-sdk.node.js',
             libraryTarget: 'commonjs2',
             libraryExport: 'default'
         },
@@ -92,8 +92,8 @@ module.exports = [
         ...baseConfig,
         output: {
             path: path.resolve(__dirname, 'dist'),
-            filename: 'tronstation-sdk.js',
-            library: 'tronstation-sdk',
+            filename: 'lindastation-sdk.js',
+            library: 'lindastation-sdk',
             libraryTarget: 'umd',
             libraryExport: 'default',
             umdNamedDefine: true

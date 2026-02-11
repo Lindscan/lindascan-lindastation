@@ -1,5 +1,5 @@
-const TronWeb = require('tronweb');
-const TronStation = require('../setup/TronStation-SDK');
+const LindaWeb = require('lindaweb');
+const LindaStation = require('../setup/LindaStation-SDK');
 const {SHASTA, LOCAL, NET} = require('./config');
 
 const createInstance = net => {
@@ -15,11 +15,11 @@ const createInstance = net => {
             throw new Error('has to choose net in config.js');
     };
 
-    let tronWeb = new TronWeb({
+    let lindaWeb = new LindaWeb({
         fullHost: node.HOST,
         privateKey: node.PRIVATE_KEY
     });
-    return new TronStation(tronWeb);
+    return new LindaStation(lindaWeb);
 }
 
 let instance;
@@ -37,14 +37,14 @@ const getTestAccounts = async (block) => {
         hex: [],
         pks: []
     }
-    const tronStation = createInstance(NET);
-    const tronWeb = tronStation.tronWeb;
-    const accountsJson = await tronWeb.fullNode.request('/admin/accounts-json');
+    const lindaStation = createInstance(NET);
+    const lindaWeb = lindaStation.lindaWeb;
+    const accountsJson = await lindaWeb.fullNode.request('/admin/accounts-json');
     accounts.pks = accountsJson.privateKeys;
     for (let i = 0; i < accounts.pks.length; i++) {
-        let addr = tronWeb.address.fromPrivateKey(accounts.pks[i]);
+        let addr = lindaWeb.address.fromPrivateKey(accounts.pks[i]);
         accounts.b58.push(addr);
-        accounts.hex.push(tronWeb.address.toHex(addr));
+        accounts.hex.push(lindaWeb.address.toHex(addr));
     }
     return Promise.resolve(accounts);
 }
@@ -53,6 +53,6 @@ module.exports = {
     createInstance,
     getInstance,
     getTestAccounts,
-    TronStation
+    LindaStation
 };
 

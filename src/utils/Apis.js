@@ -3,16 +3,16 @@ const _ = require("lodash");
 
 export default class Apis {
 
-    constructor(tronStation) {
-        this.tronWeb = tronStation.tronWeb;
-        this.utils = this.tronWeb.utils;
+    constructor(lindaStation) {
+        this.lindaWeb = lindaStation.lindaWeb;
+        this.utils = this.lindaWeb.utils;
     }
 
-    toTrx(amount) {
+    toLind(amount) {
         return parseFloat(amount) / 10e5;
     }
 
-    fromTrx(amount) {
+    fromLind(amount) {
         return amount * 10e5;
     }
 
@@ -61,7 +61,7 @@ export default class Apis {
         return str;
     }
 
-    async getResourceByName(resource, address = this.tronWeb.defaultAddress.hex) {
+    async getResourceByName(resource, address = this.lindaWeb.defaultAddress.hex) {
         switch (resource) {
             case 'EnergyWeight': {
                 resource = 'TotalEnergyWeight';
@@ -85,11 +85,11 @@ export default class Apis {
         return resources[resource];
     }
 
-    async getResourcesByName(resources, address = this.tronWeb.defaultAddress.hex) {
-        if (!this.tronWeb.isAddress(address))
+    async getResourcesByName(resources, address = this.lindaWeb.defaultAddress.hex) {
+        if (!this.lindaWeb.isAddress(address))
             throw new Error('Invalid address provides.')
 
-        const accountResources = await this.tronWeb.trx.getAccountResources(address);
+        const accountResources = await this.lindaWeb.lind.getAccountResources(address);
         if (!accountResources)
             throw new Error('Get resource failed.');
 
@@ -109,7 +109,7 @@ export default class Apis {
     }
 
     async getChainParametersByName(keys) {
-        const params = await this.tronWeb.trx.getChainParameters();
+        const params = await this.lindaWeb.lind.getChainParameters();
 
         let object = {};
         for (let i = 0; i < keys.length; i++) {

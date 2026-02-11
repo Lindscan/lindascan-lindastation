@@ -1,13 +1,13 @@
-const {assert, assertThrow, tronStationBuilder, net} = require('../../helpers/includes')
+const {assert, assertThrow, lindaStationBuilder, net} = require('../../helpers/includes')
 
 
 describe('#witness functional unit test', function () {
 
-    let tronStation;
+    let lindaStation;
 
     before(async function () {
         this.timeout(10000);
-        tronStation = tronStationBuilder.createInstance(net);
+        lindaStation = lindaStationBuilder.createInstance(net);
     });
 
     after(async function () {
@@ -19,7 +19,7 @@ describe('#witness functional unit test', function () {
         this.timeout(10000);
 
         it('should get srs reward list', async function () {
-            const res = await tronStation.witness.getSrVoteRewardList();
+            const res = await lindaStation.witness.getSrVoteRewardList();
             assert.isTrue(res.totalVotes >= 0);
             assert.isTrue(res.rewardList.length >= 0);
         });
@@ -31,23 +31,23 @@ describe('#witness functional unit test', function () {
 
         it('should calculate existed sr reward', async function () {
             //zion sr
-            const res = await tronStation.witness.calculateSrReward(1000, '41928c9af0651632157ef27a2cf17ca72c575a4d21');
+            const res = await lindaStation.witness.calculateSrReward(1000, '41928c9af0651632157ef27a2cf17ca72c575a4d21');
             assert.isTrue(res.rank === 1);
         });
 
         it('should calculate new sr reward', async function () {
-            const res = await tronStation.witness.calculateSrReward(1000);
+            const res = await lindaStation.witness.calculateSrReward(1000);
             assert.equal(res.sr, 'New SR');
         });
 
         it('should throw invalid error', async function () {
             await assertThrow(
-                tronStation.witness.calculateSrReward(-10000),
+                lindaStation.witness.calculateSrReward(-10000),
                 'Provided addedVotes should be >= 0.'
             );
 
             await assertThrow(
-                tronStation.witness.calculateSrReward(10000, '1231232123213'),
+                lindaStation.witness.calculateSrReward(10000, '1231232123213'),
                 'Invalid address provided.'
             );
         });

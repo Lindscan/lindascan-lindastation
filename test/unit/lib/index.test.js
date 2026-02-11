@@ -1,14 +1,14 @@
-const {assert, assertThrow, tronStationBuilder, net, } = require('../../helpers/includes')
-const TronWeb = require('tronweb');
+const {assert, assertThrow, lindaStationBuilder, net, } = require('../../helpers/includes')
+const LindaWeb = require('lindaweb');
 
 
 describe('#index functional unit test', function () {
 
-    let tronStation;
+    let lindaStation;
 
     before(async function () {
         this.timeout(10000);
-        tronStation = tronStationBuilder.createInstance(net);
+        lindaStation = lindaStationBuilder.createInstance(net);
     });
 
     after(async function () {
@@ -16,18 +16,18 @@ describe('#index functional unit test', function () {
     });
 
 
-    describe('#Reset tronweb', function () {
+    describe('#Reset lindaweb', function () {
         this.timeout(10000);
 
-        it('should reset tronWeb', async function () {
-            let res = await tronStation.witness.getSrVoteRewardList();
+        it('should reset lindaWeb', async function () {
+            let res = await lindaStation.witness.getSrVoteRewardList();
             assert.equal(res.rewardList.length, 1);
-            const newTronWeb = new TronWeb({
-                fullHost: 'https://api.trongrid.io',
+            const newLindaWeb = new LindaWeb({
+                fullHost: 'https://api.lindagrid.lindacoin.org',
                 privateKey: 'your private key'
             });
-            tronStation.setTronWeb(newTronWeb)
-            res = await tronStation.witness.getSrVoteRewardList()
+            lindaStation.setLindaWeb(newLindaWeb)
+            res = await lindaStation.witness.getSrVoteRewardList()
             assert.isTrue(res.rewardList.length >= 27);
         });
 

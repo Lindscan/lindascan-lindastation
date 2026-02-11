@@ -3,13 +3,13 @@ const _ = require("lodash");
 
 export default class Witness extends Base {
 
-    constructor(tronStation) {
-        super(tronStation);
+    constructor(lindaStation) {
+        super(lindaStation);
     }
 
     async getSrVoteRewardList() {
 
-        const srs = await this.tronWeb.trx.listSuperRepresentatives();
+        const srs = await this.lindaWeb.lind.listSuperRepresentatives();
         let data = [];
         let rewardList = [];
         let totalVotes = _.sumBy(srs, sr => {
@@ -18,16 +18,16 @@ export default class Witness extends Base {
 
         let totalVoteReward = 16 * 20 * 60 * 24;
         let totalBlockReward = 2 * totalVoteReward;
-        let isMainNet = this.tronWeb.fullNode.host === 'https://api.trongrid.io';
+        let isMainNet = this.lindaWeb.fullNode.host === 'https://api.lindagrid.lindacoin.org';
         let srAmount = isMainNet ? 27 : srs.length;
 
         await Promise.all(
             srs.map(async sr => {
                 let object = {};
-                const account = await this.tronWeb.trx.getAccount(sr.address);
+                const account = await this.lindaWeb.lind.getAccount(sr.address);
                 object.rank = 0;
                 if (account.account_name !== undefined) {
-                    object.name = this.tronWeb.utils.bytes.bytesToString(this.apis.hexStringToBytes(account.account_name));
+                    object.name = this.lindaWeb.utils.bytes.bytesToString(this.apis.hexStringToBytes(account.account_name));
                 } else {
                     object.name = sr.url;
                 }
@@ -74,8 +74,8 @@ export default class Witness extends Base {
         if (srAddress)
             this.validator.validateAddress(srAddress);
 
-        let isMainNet = this.tronWeb.fullNode.host === 'https://api.trongrid.io';
-        srAddress = this.tronWeb.address.toHex(srAddress);
+        let isMainNet = this.lindaWeb.fullNode.host === 'https://api.lindagrid.lindacoin.org';
+        srAddress = this.lindaWeb.address.toHex(srAddress);
 
         let res = await this.getSrVoteRewardList();
         let srs = res.rewardList;

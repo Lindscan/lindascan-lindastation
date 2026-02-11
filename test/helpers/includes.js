@@ -1,7 +1,7 @@
 const chai = require('chai');
 const assert = chai.assert;
-const tronStationBuilder = require('./tronStationBuilder');
-const TronWeb = require('../setup/TronWeb');
+const lindaStationBuilder = require('./lindaStationBuilder');
+const LindaWeb = require('../setup/LindaWeb');
 const { NET } = require('./config');
 const assertThrow = require('./assertThrow');
 
@@ -10,7 +10,7 @@ module.exports = {
     chai,
     assert,
     assertThrow,
-    tronStationBuilder,
-    TronWeb,
+    lindaStationBuilder,
+    LindaWeb,
     net: NET
 };

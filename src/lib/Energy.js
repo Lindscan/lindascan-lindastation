@@ -2,24 +2,24 @@ import Base from './Base';
 
 export default class Energy extends Base {
 
-    constructor(tronStation) {
-        super(tronStation);
+    constructor(lindaStation) {
+        super(lindaStation);
         this.defaultTotalEnergyLimit = 10e10
     }
 
-    async trx2FrozenEnergy(amount, options = {}) {
+    async lind2FrozenEnergy(amount, options = {}) {
 
         this.validator.validateNumber({ n: 'amount', v: amount}, '>=', 0);
 
         if (options.unit === 'sun')
-            amount = this.apis.toTrx(amount);
+            amount = this.apis.toLind(amount);
 
         let totalEnergyWeight = await this.apis.getResourceByName('EnergyWeight');
         let totalEnergyLimit = await this.apis.getChainParameterByName('getTotalEnergyCurrentLimit');
         return (amount * (totalEnergyLimit ? totalEnergyLimit : this.defaultTotalEnergyLimit)) / totalEnergyWeight;
     }
 
-    async frozenEnergy2Trx(energy, options = {}) {
+    async frozenEnergy2Lind(energy, options = {}) {
 
         this.validator.validateNumber({ n: 'energy', v: energy}, '>=', 0);
 
@@ -28,31 +28,31 @@ export default class Energy extends Base {
         let amount = (energy * totalEnergyWeight) / (totalEnergyLimit ? totalEnergyLimit : this.defaultTotalEnergyLimit);
 
         if (options.unit === 'sun') {
-            amount = this.apis.fromTrx(amount);
+            amount = this.apis.fromLind(amount);
         }
         return amount;
     }
 
-    async trx2BurnedEnergy(amount, options = {}) {
+    async lind2BurnedEnergy(amount, options = {}) {
 
         this.validator.validateNumber({ n: 'amount', v: amount}, '>=', 0);
 
         if (options.unit === 'sun')
-            amount = this.apis.toTrx(amount);
+            amount = this.apis.toLind(amount);
 
         let energyFee = await this.apis.getChainParameterByName("getEnergyFee");
-        return this.apis.fromTrx(amount) / energyFee;
+        return this.apis.fromLind(amount) / energyFee;
     }
 
-    async burnedEnergy2Trx(energy, options = {}) {
+    async burnedEnergy2Lind(energy, options = {}) {
 
         this.validator.validateNumber({ n: 'energy', v: energy}, '>=', 0);
 
         let energyFee = await this.apis.getChainParameterByName("getEnergyFee");
-        let amount = energy * this.apis.toTrx(energyFee);
+        let amount = energy * this.apis.toLind(energyFee);
 
         if (options.unit === 'sun') {
-            amount = this.apis.fromTrx(amount);
+            amount = this.apis.fromLind(amount);
         }
         return amount;
     }
@@ -63,13 +63,13 @@ export default class Energy extends Base {
         this.validator.validateNumber({ n: 'feeLimit', v: feeLimit}, '>=', 0);
 
         if (options.unit === 'sun') {
-            this.apis.toTrx(feeLimit);
+            this.apis.toLind(feeLimit);
         }
         if (feeLimit > 1000) {
-            throw new Error('Max fee limit has a max limit of 1000 trx.');
+            throw new Error('Max fee limit has a max limit of 1000 lind.');
         }
 
-        let account = await this.tronWeb.trx.getAccount(address);
+        let account = await this.lindaWeb.lind.getAccount(address);
         if (!account || Object.keys(account).length === 0) {
             throw new Error('Account not exists or not activated.');
         }
@@ -85,8 +85,8 @@ export default class Energy extends Base {
         let totalEnergyWeight = this.apis.filterData(resources.TotalEnergyWeight);
 
         let ratio = totalEnergyLimit / totalEnergyWeight;
-        let accountTrxEnergy = (account.balance / energyFee);
-        let accountTotalEnergy = energyLimit + accountTrxEnergy - energyUsed;
+        let accountLindEnergy = (account.balance / energyFee);
+        let accountTotalEnergy = energyLimit + accountLindEnergy - energyUsed;
         let feeLimitEnergy = (feeLimit * ratio);
 
         let maxEnergyLimit;
@@ -99,7 +99,7 @@ export default class Energy extends Base {
         return {
             accountEnergy: energyLimit,
             accountEnergyUsed: energyUsed,
-            accountTrxEnergy: accountTrxEnergy,
+            accountLindEnergy: accountLindEnergy,
             accountTotalEnergy: accountTotalEnergy,
             feeLimit: feeLimit,
             feeLimitEnergy: feeLimitEnergy,

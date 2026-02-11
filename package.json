@@ -1,8 +1,8 @@
 {
-  "name": "@tronscanteam/tronstation",
+  "name": "@lindascan/lindastation",
   "version": "1.0.3",
-  "description": "Javascript API Library for estimating Tron energy and bandwidth consumption based on Tron network.",
-  "main": "dist/tronstation-sdk.node.js",
+  "description": "Javascript API Library for estimating Linda energy and bandwidth consumption based on Linda network.",
+  "main": "dist/lindastation-sdk.node.js",
   "scripts": {
     "prepare": "npm run build",
     "build": "npm run clean && webpack --config webpack.config.js --progress --colors",
@@ -28,7 +28,7 @@
     "babel-plugin-source-map-support": "^2.0.1",
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
-    "tronweb": "^2.6.4",
+    "lindaweb": "^6.0.4",
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0",
     "webpack-node-externals": "^1.7.2"
@@ -39,8 +39,8 @@
   },
   "contributors": [
     {
-      "name": "TRON",
-      "url": "https://github.com/Tron-US"
+      "name": "LINDA",
+      "url": "https://github.com/Lindscan"
     }
   ],
   "homepage": "",
