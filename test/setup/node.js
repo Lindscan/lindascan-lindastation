@@ -1,1 +1,1 @@
-module.exports = require('../../dist/lindastation-sdk.node');
+module.exports = require('../../dist/lindastation-sdk.node.js');
